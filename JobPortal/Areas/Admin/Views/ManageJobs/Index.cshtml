@@ -1,0 +1,112 @@
+﻿@model IEnumerable<JobPortal.Models.ManageJob>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_adminlayout.cshtml";
+}
+
+<h2></h2>
+<input type="text" id="txtsearch" placeholder="Search Job By Name" />
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table table-striped table-bordered table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JobName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobSkills)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobExpirience)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.JobIsActive)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.JobDocuments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobCreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobModifiedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobCreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobModifiedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CityMaster.CityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department.DepName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobSkills)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobExpirience)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.JobIsActive)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.JobDocuments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobCreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobModifiedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobCreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobModifiedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CityMaster.CityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department.DepName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.JobId }) 
+            @Html.ActionLink("Details", "Details", new { id=item.JobId }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.JobId })
+        </td>
+    </tr>
+}
+
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $("#txtsearch").on("keyup", function () {
+        var txtenter = $(this).val();
+        $("table tr").each(function (results) {
+            if (results !== 0) {
+                var id = $(this).find("td:nth-child(1)").text();
+                if (id.indexOf(txtenter) !== 0 && id.toLowerCase().indexOf(txtenter.toLowerCase()) < 0) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+</script>

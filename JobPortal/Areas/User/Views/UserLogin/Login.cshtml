@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Areas/User/Views/Shared/_bsignin.cshtml";
+}
+
+
+
+
+<!-- login start here -->
+<div id="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <!-- login-content start here -->
+                <div class="login-content">
+                    <h1>Login</h1>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="index-2.html">Home</a>
+                        </li>
+                        <li>></li>
+                        <li>
+                            <a href="login.html">Login</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- login-content end here -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- login end here -->
+<!-- login-form start here -->
+<div id="login-form">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-offset-2 col-md-8 col-sm-8  col-xs-12">
+                <div class="form">
+                    <div class="border"></div>
+                    <div class="border1"></div>
+                    <form class="form-horizontal" method="post">
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label>Username</label>
+                                    <input class="form-control" id="UserName" placeholder="Enter your username" value="" name="UserName" required="" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label>Password</label>
+                                    <input class="form-control" type="password" id="UserPassword" placeholder="Enter your password" value="" name="UserPassword" required="" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @*<div class="col-sm-12 confirmation">
+                                    <label>
+                                        <input name="confirmation" value="yes" type="checkbox">Remember me
+                                    </label>
+                                    <a href="#" class="colorLink subHeadingText icon-wrap pull-right">Forgot password?</a>
+                                </div>*@
+                            </div>
+                            <div class="button">
+                                <button type="submit" value="Submit" class="btn btn-primary btnus">LOGIN</button>
+                            </div>
+                            <p>Don't have an account? <a href="@Url.Action("Create","UserMasters")">Register</a></p>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- login-form  end here -->

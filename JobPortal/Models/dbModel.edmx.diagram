@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="729c8c49cffa45f281e291406f32d327" Name="Diagram1">
+        <EntityTypeShape EntityType="dbjobportalModel.adminlog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbjobportalModel.CityMaster" Width="1.5" PointX="7.875" PointY="1.875" />
+        <EntityTypeShape EntityType="dbjobportalModel.CountryMaster" Width="1.5" PointX="3.375" PointY="2.125" />
+        <EntityTypeShape EntityType="dbjobportalModel.Department" Width="1.5" PointX="7.875" PointY="6.125" />
+        <EntityTypeShape EntityType="dbjobportalModel.ManageJob" Width="1.5" PointX="10.125" PointY="1" />
+        <EntityTypeShape EntityType="dbjobportalModel.StateMaster" Width="1.5" PointX="5.625" PointY="1.875" />
+        <AssociationConnector Association="dbjobportalModel.FK__CityMaste__RefSt__534D60F1" />
+        <AssociationConnector Association="dbjobportalModel.FK__ManageJob__RefCi__571DF1D5" />
+        <AssociationConnector Association="dbjobportalModel.FK__StateMast__RefCo__4F7CD00D" />
+        <AssociationConnector Association="dbjobportalModel.FK__ManageJob__RefDe__5629CD9C" />
+        <EntityTypeShape EntityType="dbjobportalModel.UserMaster" Width="1.5" PointX="10.125" PointY="5.5" />
+        <AssociationConnector Association="dbjobportalModel.FK__UserMaste__RefCi__70DDC3D8" />
+        <AssociationConnector Association="dbjobportalModel.FK__UserMaste__RefDe__6FE99F9F" />
+        <EntityTypeShape EntityType="dbjobportalModel.jobseek" Width="1.5" PointX="12.375" PointY="4.75" />
+        <AssociationConnector Association="dbjobportalModel.FK__jobseek__RefJobI__03F0984C" />
+        <AssociationConnector Association="dbjobportalModel.FK__jobseek__RefUser__02FC7413" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,155 @@
+﻿@model JobPortal.Models.UserMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_adminlayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserPassword)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserAddress1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserAddress1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserAddress2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserAddress2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserGender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserGender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserDOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserDOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserContact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserContact)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserSkills)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserSkills)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserExperience)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserExperience)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserDoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserDoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UCreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UCreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UModifiedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UModifiedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UCreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UCreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UModifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CityMaster.CityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityMaster.CityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.DepName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.DepName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

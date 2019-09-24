@@ -1,0 +1,172 @@
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace PMS
+{
+    public partial class ProductManage : System.Web.UI.Page
+    {
+        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["strConn"].ConnectionString);
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                fillCategoryDropDownList();
+
+                
+            }
+        }
+
+        
+        private void fillCategoryDropDownList()
+        {
+            using (SqlCommand sqlCmd = new SqlCommand())
+            {
+                sqlCmd.CommandText = "SELECT * FROM CategoryMaster";
+                sqlCmd.Connection = sqlConn;
+                sqlConn.Open();
+                SqlDataAdapter da = new SqlDataAdapter(sqlCmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                ddlCategory.DataSource = dt;
+                ddlCategory.DataValueField = "CategoryId";
+                ddlCategory.DataTextField = "CategoryName";
+                ddlCategory.DataBind();
+                sqlConn.Close();
+                ddlCategory.Items.Insert(0, "Select Category");
+                ddlSubCategory.Items.Insert(0, "Select Subcategory");
+            }
+
+
+        }
+        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (SqlCommand sqlCmd = new SqlCommand())
+            {
+                sqlCmd.CommandText = "SELECT * FROM SubCategoryMaster WHERE RefCategoryId = @CategoryId";
+
+                sqlCmd.Parameters.AddWithValue("@CategoryId", ddlCategory.SelectedValue);
+                sqlCmd.Connection = sqlConn;
+                sqlConn.Open();
+                SqlDataAdapter da = new SqlDataAdapter(sqlCmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                ddlSubCategory.DataSource = dt;
+                ddlSubCategory.DataValueField = "SubCategoryId";
+                ddlSubCategory.DataTextField = "SubCategoryName";
+                ddlSubCategory.DataBind();
+                sqlConn.Close();
+                //Adding "Please select city" option in dropdownlist
+                ddlSubCategory.Items.Insert(0, new ListItem("Please select SubCategory", "0"));
+            }
+        }
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(Server.MapPath("Images")))
+            {
+                Directory.CreateDirectory(Server.MapPath("Images"));
+            }
+
+
+            string imageUrl = (Server.MapPath("Images") + "\\" + flImage.FileName);
+            string dbpathImage = "~/Images/" + flImage.FileName;
+            flImage.SaveAs(imageUrl);
+
+
+            SqlCommand cmd = new SqlCommand("Insert into ProductMaster(ProductName, RefSubCategoryId, Price,Description,ProductImage)" +
+                "values(@pname,@refscid,@price,@description,@pimg)", sqlConn);
+
+            cmd.Parameters.AddWithValue("@pname", txtProductName.Text);
+            cmd.Parameters.AddWithValue("@refscid", ddlSubCategory.SelectedValue.ToString());
+            cmd.Parameters.AddWithValue("@price", txtPrice.Text);
+            cmd.Parameters.AddWithValue("@description", txtDesc.Text);
+             cmd.Parameters.AddWithValue("@pimg", dbpathImage);
+          //  cmd.Parameters.AddWithValue("@pimg", SqlDbType.Image).Value = DBNull.Value;
+
+
+
+
+            sqlConn.Open();
+
+            cmd.ExecuteNonQuery();
+
+            sqlConn.Close();
+
+
+
+        }
+    }
+}
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            if (!Directory.Exists(Server.MapPath("Images")){
+                Directory.CreateDirectory(Server.MapPath("Images"));
+
+            }
+
+            string imageUrl = (Server.MapPath("Images") + "\\" + flImage.FileName);
+            string dbpathImage = "~/Images/" + flImage.FileName;
+            flImage.SaveAs(imageUrl);
+
+
+            SqlCommand cmd = new SqlCommand("Insert into ProductMaster(ProductName,RefSubCategoryId,price,Description,ProductImage) " +
+                "values(@pname,@refscid,@price,@description,@pimg)", connStr);
+
+            cmd.Parameters.AddWithValue("@pname", txtProductName.Text);
+            cmd.Parameters.AddWithValue("@refscid", ddlSubCategory.SelectedValue.ToString());
+            cmd.Parameters.AddWithValue("@price", txtPrice.Text);
+            cmd.Parameters.AddWithValue("@description", txtDesc.Text);
+            cmd.Parameters.AddWithValue("@pimg", dbpathImage);
+
+            connStr.Open();
+            cmd.ExecuteNonQuery();
+            connStr.Close();
+        }
+    

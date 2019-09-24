@@ -1,0 +1,602 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbjobportalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="adminlog">
+          <Key>
+            <PropertyRef Name="adminloginId" />
+          </Key>
+          <Property Name="adminloginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adminName" Type="varchar" MaxLength="50" />
+          <Property Name="adminPassword" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CityMaster">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="RefStateId" Type="int" />
+        </EntityType>
+        <EntityType Name="CountryMaster">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepId" />
+          </Key>
+          <Property Name="DepId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="jobseek">
+          <Key>
+            <PropertyRef Name="JobseekId" />
+          </Key>
+          <Property Name="JobseekId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobCreatedDate" Type="date" />
+          <Property Name="RefUserId" Type="int" />
+          <Property Name="RefJobId" Type="int" />
+        </EntityType>
+        <EntityType Name="ManageJob">
+          <Key>
+            <PropertyRef Name="JobId" />
+          </Key>
+          <Property Name="JobId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobName" Type="varchar" MaxLength="200" />
+          <Property Name="JobSkills" Type="varchar" MaxLength="200" />
+          <Property Name="JobExpirience" Type="varchar" MaxLength="100" />
+          <Property Name="JobIsActive" Type="bit" />
+          <Property Name="JobDocuments" Type="varchar(max)" />
+          <Property Name="JobCreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="JobModifiedBy" Type="varchar" MaxLength="100" />
+          <Property Name="JobCreatedDate" Type="date" />
+          <Property Name="JobModifiedDate" Type="date" />
+          <Property Name="RefDepartmentId" Type="int" />
+          <Property Name="RefCityId" Type="int" />
+        </EntityType>
+        <EntityType Name="StateMaster">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="RefCountryId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="20" />
+          <Property Name="UserAddress1" Type="varchar" MaxLength="200" />
+          <Property Name="UserAddress2" Type="varchar" MaxLength="200" />
+          <Property Name="UserGender" Type="varchar" MaxLength="20" />
+          <Property Name="UserDOB" Type="date" />
+          <Property Name="UserContact" Type="int" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="100" />
+          <Property Name="UserSkills" Type="varchar" MaxLength="100" />
+          <Property Name="UserExperience" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="UserDoc" Type="varchar(max)" />
+          <Property Name="UCreatedBy" Type="varchar" MaxLength="20" />
+          <Property Name="UModifiedBy" Type="varchar" MaxLength="20" />
+          <Property Name="UCreatedDate" Type="date" />
+          <Property Name="UModifiedDate" Type="date" />
+          <Property Name="RefDepartmentId" Type="int" />
+          <Property Name="RefCityId" Type="int" />
+        </EntityType>
+        <Association Name="FK__CityMaste__RefSt__534D60F1">
+          <End Role="StateMaster" Type="Self.StateMaster" Multiplicity="0..1" />
+          <End Role="CityMaster" Type="Self.CityMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateMaster">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="CityMaster">
+              <PropertyRef Name="RefStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__jobseek__RefJobI__03F0984C">
+          <End Role="ManageJob" Type="Self.ManageJob" Multiplicity="0..1" />
+          <End Role="jobseek" Type="Self.jobseek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManageJob">
+              <PropertyRef Name="JobId" />
+            </Principal>
+            <Dependent Role="jobseek">
+              <PropertyRef Name="RefJobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__jobseek__RefUser__02FC7413">
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="0..1" />
+          <End Role="jobseek" Type="Self.jobseek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="jobseek">
+              <PropertyRef Name="RefUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ManageJob__RefCi__571DF1D5">
+          <End Role="CityMaster" Type="Self.CityMaster" Multiplicity="0..1" />
+          <End Role="ManageJob" Type="Self.ManageJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityMaster">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="ManageJob">
+              <PropertyRef Name="RefCityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ManageJob__RefDe__5629CD9C">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="ManageJob" Type="Self.ManageJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepId" />
+            </Principal>
+            <Dependent Role="ManageJob">
+              <PropertyRef Name="RefDepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StateMast__RefCo__4F7CD00D">
+          <End Role="CountryMaster" Type="Self.CountryMaster" Multiplicity="0..1" />
+          <End Role="StateMaster" Type="Self.StateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CountryMaster">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="StateMaster">
+              <PropertyRef Name="RefCountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserMaste__RefCi__70DDC3D8">
+          <End Role="CityMaster" Type="Self.CityMaster" Multiplicity="0..1" />
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityMaster">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="UserMaster">
+              <PropertyRef Name="RefCityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserMaste__RefDe__6FE99F9F">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="UserMaster" Type="Self.UserMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepId" />
+            </Principal>
+            <Dependent Role="UserMaster">
+              <PropertyRef Name="RefDepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbjobportalModelStoreContainer">
+          <EntitySet Name="adminlog" EntityType="Self.adminlog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CityMaster" EntityType="Self.CityMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CountryMaster" EntityType="Self.CountryMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="jobseek" EntityType="Self.jobseek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManageJob" EntityType="Self.ManageJob" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StateMaster" EntityType="Self.StateMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CityMaste__RefSt__534D60F1" Association="Self.FK__CityMaste__RefSt__534D60F1">
+            <End Role="StateMaster" EntitySet="StateMaster" />
+            <End Role="CityMaster" EntitySet="CityMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__jobseek__RefJobI__03F0984C" Association="Self.FK__jobseek__RefJobI__03F0984C">
+            <End Role="ManageJob" EntitySet="ManageJob" />
+            <End Role="jobseek" EntitySet="jobseek" />
+          </AssociationSet>
+          <AssociationSet Name="FK__jobseek__RefUser__02FC7413" Association="Self.FK__jobseek__RefUser__02FC7413">
+            <End Role="UserMaster" EntitySet="UserMaster" />
+            <End Role="jobseek" EntitySet="jobseek" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ManageJob__RefCi__571DF1D5" Association="Self.FK__ManageJob__RefCi__571DF1D5">
+            <End Role="CityMaster" EntitySet="CityMaster" />
+            <End Role="ManageJob" EntitySet="ManageJob" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ManageJob__RefDe__5629CD9C" Association="Self.FK__ManageJob__RefDe__5629CD9C">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="ManageJob" EntitySet="ManageJob" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StateMast__RefCo__4F7CD00D" Association="Self.FK__StateMast__RefCo__4F7CD00D">
+            <End Role="CountryMaster" EntitySet="CountryMaster" />
+            <End Role="StateMaster" EntitySet="StateMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserMaste__RefCi__70DDC3D8" Association="Self.FK__UserMaste__RefCi__70DDC3D8">
+            <End Role="CityMaster" EntitySet="CityMaster" />
+            <End Role="UserMaster" EntitySet="UserMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserMaste__RefDe__6FE99F9F" Association="Self.FK__UserMaste__RefDe__6FE99F9F">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="UserMaster" EntitySet="UserMaster" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbjobportalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="adminlog">
+          <Key>
+            <PropertyRef Name="adminloginId" />
+          </Key>
+          <Property Name="adminloginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="adminPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="dbjobportalEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="adminlogs" EntityType="Self.adminlog" />
+          <EntitySet Name="CityMasters" EntityType="dbjobportalModel.CityMaster" />
+          <EntitySet Name="CountryMasters" EntityType="dbjobportalModel.CountryMaster" />
+          <EntitySet Name="Departments" EntityType="dbjobportalModel.Department" />
+          <EntitySet Name="ManageJobs" EntityType="dbjobportalModel.ManageJob" />
+          <EntitySet Name="StateMasters" EntityType="dbjobportalModel.StateMaster" />
+          <AssociationSet Name="FK__CityMaste__RefSt__534D60F1" Association="dbjobportalModel.FK__CityMaste__RefSt__534D60F1">
+            <End Role="StateMaster" EntitySet="StateMasters" />
+            <End Role="CityMaster" EntitySet="CityMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ManageJob__RefCi__571DF1D5" Association="dbjobportalModel.FK__ManageJob__RefCi__571DF1D5">
+            <End Role="CityMaster" EntitySet="CityMasters" />
+            <End Role="ManageJob" EntitySet="ManageJobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StateMast__RefCo__4F7CD00D" Association="dbjobportalModel.FK__StateMast__RefCo__4F7CD00D">
+            <End Role="CountryMaster" EntitySet="CountryMasters" />
+            <End Role="StateMaster" EntitySet="StateMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ManageJob__RefDe__5629CD9C" Association="dbjobportalModel.FK__ManageJob__RefDe__5629CD9C">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="ManageJob" EntitySet="ManageJobs" />
+          </AssociationSet>
+          <EntitySet Name="UserMasters" EntityType="dbjobportalModel.UserMaster" />
+          <AssociationSet Name="FK__UserMaste__RefCi__70DDC3D8" Association="dbjobportalModel.FK__UserMaste__RefCi__70DDC3D8">
+            <End Role="CityMaster" EntitySet="CityMasters" />
+            <End Role="UserMaster" EntitySet="UserMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserMaste__RefDe__6FE99F9F" Association="dbjobportalModel.FK__UserMaste__RefDe__6FE99F9F">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="UserMaster" EntitySet="UserMasters" />
+          </AssociationSet>
+          <EntitySet Name="jobseeks" EntityType="dbjobportalModel.jobseek" />
+          <AssociationSet Name="FK__jobseek__RefJobI__03F0984C" Association="dbjobportalModel.FK__jobseek__RefJobI__03F0984C">
+            <End Role="ManageJob" EntitySet="ManageJobs" />
+            <End Role="jobseek" EntitySet="jobseeks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__jobseek__RefUser__02FC7413" Association="dbjobportalModel.FK__jobseek__RefUser__02FC7413">
+            <End Role="UserMaster" EntitySet="UserMasters" />
+            <End Role="jobseek" EntitySet="jobseeks" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="CityMaster">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="RefStateId" Type="Int32" />
+          <NavigationProperty Name="StateMaster" Relationship="dbjobportalModel.FK__CityMaste__RefSt__534D60F1" FromRole="CityMaster" ToRole="StateMaster" />
+          <NavigationProperty Name="ManageJobs" Relationship="dbjobportalModel.FK__ManageJob__RefCi__571DF1D5" FromRole="CityMaster" ToRole="ManageJob" />
+          <NavigationProperty Name="UserMasters" Relationship="dbjobportalModel.FK__UserMaste__RefCi__70DDC3D8" FromRole="CityMaster" ToRole="UserMaster" />
+        </EntityType>
+        <EntityType Name="CountryMaster">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StateMasters" Relationship="dbjobportalModel.FK__StateMast__RefCo__4F7CD00D" FromRole="CountryMaster" ToRole="StateMaster" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepId" />
+          </Key>
+          <Property Name="DepId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ManageJobs" Relationship="dbjobportalModel.FK__ManageJob__RefDe__5629CD9C" FromRole="Department" ToRole="ManageJob" />
+          <NavigationProperty Name="UserMasters" Relationship="dbjobportalModel.FK__UserMaste__RefDe__6FE99F9F" FromRole="Department" ToRole="UserMaster" />
+        </EntityType>
+        <EntityType Name="ManageJob">
+          <Key>
+            <PropertyRef Name="JobId" />
+          </Key>
+          <Property Name="JobId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="JobSkills" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="JobExpirience" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JobIsActive" Type="Boolean" />
+          <Property Name="JobDocuments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="JobCreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JobModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JobCreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="JobModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="RefDepartmentId" Type="Int32" />
+          <Property Name="RefCityId" Type="Int32" />
+          <NavigationProperty Name="CityMaster" Relationship="dbjobportalModel.FK__ManageJob__RefCi__571DF1D5" FromRole="ManageJob" ToRole="CityMaster" />
+          <NavigationProperty Name="Department" Relationship="dbjobportalModel.FK__ManageJob__RefDe__5629CD9C" FromRole="ManageJob" ToRole="Department" />
+          <NavigationProperty Name="jobseeks" Relationship="dbjobportalModel.FK__jobseek__RefJobI__03F0984C" FromRole="ManageJob" ToRole="jobseek" />
+        </EntityType>
+        <EntityType Name="StateMaster">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="RefCountryId" Type="Int32" />
+          <NavigationProperty Name="CityMasters" Relationship="dbjobportalModel.FK__CityMaste__RefSt__534D60F1" FromRole="StateMaster" ToRole="CityMaster" />
+          <NavigationProperty Name="CountryMaster" Relationship="dbjobportalModel.FK__StateMast__RefCo__4F7CD00D" FromRole="StateMaster" ToRole="CountryMaster" />
+        </EntityType>
+        <Association Name="FK__CityMaste__RefSt__534D60F1">
+          <End Type="dbjobportalModel.StateMaster" Role="StateMaster" Multiplicity="0..1" />
+          <End Type="dbjobportalModel.CityMaster" Role="CityMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateMaster">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="CityMaster">
+              <PropertyRef Name="RefStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ManageJob__RefCi__571DF1D5">
+          <End Type="dbjobportalModel.CityMaster" Role="CityMaster" Multiplicity="0..1" />
+          <End Type="dbjobportalModel.ManageJob" Role="ManageJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityMaster">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="ManageJob">
+              <PropertyRef Name="RefCityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StateMast__RefCo__4F7CD00D">
+          <End Type="dbjobportalModel.CountryMaster" Role="CountryMaster" Multiplicity="0..1" />
+          <End Type="dbjobportalModel.StateMaster" Role="StateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CountryMaster">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="StateMaster">
+              <PropertyRef Name="RefCountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ManageJob__RefDe__5629CD9C">
+          <End Type="dbjobportalModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="dbjobportalModel.ManageJob" Role="ManageJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepId" />
+            </Principal>
+            <Dependent Role="ManageJob">
+              <PropertyRef Name="RefDepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserAddress1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserAddress2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserGender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserDOB" Type="DateTime" Precision="0" />
+          <Property Name="UserContact" Type="Int32" />
+          <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserSkills" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserExperience" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UserDoc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UCreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UCreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="UModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="RefDepartmentId" Type="Int32" />
+          <Property Name="RefCityId" Type="Int32" />
+          <NavigationProperty Name="CityMaster" Relationship="dbjobportalModel.FK__UserMaste__RefCi__70DDC3D8" FromRole="UserMaster" ToRole="CityMaster" />
+          <NavigationProperty Name="Department" Relationship="dbjobportalModel.FK__UserMaste__RefDe__6FE99F9F" FromRole="UserMaster" ToRole="Department" />
+          <NavigationProperty Name="jobseeks" Relationship="dbjobportalModel.FK__jobseek__RefUser__02FC7413" FromRole="UserMaster" ToRole="jobseek" />
+        </EntityType>
+        <Association Name="FK__UserMaste__RefCi__70DDC3D8">
+          <End Type="dbjobportalModel.CityMaster" Role="CityMaster" Multiplicity="0..1" />
+          <End Type="dbjobportalModel.UserMaster" Role="UserMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityMaster">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="UserMaster">
+              <PropertyRef Name="RefCityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserMaste__RefDe__6FE99F9F">
+          <End Type="dbjobportalModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="dbjobportalModel.UserMaster" Role="UserMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepId" />
+            </Principal>
+            <Dependent Role="UserMaster">
+              <PropertyRef Name="RefDepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="jobseek">
+          <Key>
+            <PropertyRef Name="JobseekId" />
+          </Key>
+          <Property Name="JobseekId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobCreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="RefUserId" Type="Int32" />
+          <Property Name="RefJobId" Type="Int32" />
+          <NavigationProperty Name="ManageJob" Relationship="dbjobportalModel.FK__jobseek__RefJobI__03F0984C" FromRole="jobseek" ToRole="ManageJob" />
+          <NavigationProperty Name="UserMaster" Relationship="dbjobportalModel.FK__jobseek__RefUser__02FC7413" FromRole="jobseek" ToRole="UserMaster" />
+        </EntityType>
+        <Association Name="FK__jobseek__RefJobI__03F0984C">
+          <End Type="dbjobportalModel.ManageJob" Role="ManageJob" Multiplicity="0..1" />
+          <End Type="dbjobportalModel.jobseek" Role="jobseek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManageJob">
+              <PropertyRef Name="JobId" />
+            </Principal>
+            <Dependent Role="jobseek">
+              <PropertyRef Name="RefJobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__jobseek__RefUser__02FC7413">
+          <End Type="dbjobportalModel.UserMaster" Role="UserMaster" Multiplicity="0..1" />
+          <End Type="dbjobportalModel.jobseek" Role="jobseek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="jobseek">
+              <PropertyRef Name="RefUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbjobportalModelStoreContainer" CdmEntityContainer="dbjobportalEntities1">
+          <EntitySetMapping Name="adminlogs">
+            <EntityTypeMapping TypeName="dbjobportalModel.adminlog">
+              <MappingFragment StoreEntitySet="adminlog">
+                <ScalarProperty Name="adminloginId" ColumnName="adminloginId" />
+                <ScalarProperty Name="adminName" ColumnName="adminName" />
+                <ScalarProperty Name="adminPassword" ColumnName="adminPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CityMasters">
+            <EntityTypeMapping TypeName="dbjobportalModel.CityMaster">
+              <MappingFragment StoreEntitySet="CityMaster">
+                <ScalarProperty Name="RefStateId" ColumnName="RefStateId" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CountryMasters">
+            <EntityTypeMapping TypeName="dbjobportalModel.CountryMaster">
+              <MappingFragment StoreEntitySet="CountryMaster">
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="dbjobportalModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DepName" ColumnName="DepName" />
+                <ScalarProperty Name="DepId" ColumnName="DepId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManageJobs">
+            <EntityTypeMapping TypeName="dbjobportalModel.ManageJob">
+              <MappingFragment StoreEntitySet="ManageJob">
+                <ScalarProperty Name="RefCityId" ColumnName="RefCityId" />
+                <ScalarProperty Name="RefDepartmentId" ColumnName="RefDepartmentId" />
+                <ScalarProperty Name="JobModifiedDate" ColumnName="JobModifiedDate" />
+                <ScalarProperty Name="JobCreatedDate" ColumnName="JobCreatedDate" />
+                <ScalarProperty Name="JobModifiedBy" ColumnName="JobModifiedBy" />
+                <ScalarProperty Name="JobCreatedBy" ColumnName="JobCreatedBy" />
+                <ScalarProperty Name="JobDocuments" ColumnName="JobDocuments" />
+                <ScalarProperty Name="JobIsActive" ColumnName="JobIsActive" />
+                <ScalarProperty Name="JobExpirience" ColumnName="JobExpirience" />
+                <ScalarProperty Name="JobSkills" ColumnName="JobSkills" />
+                <ScalarProperty Name="JobName" ColumnName="JobName" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StateMasters">
+            <EntityTypeMapping TypeName="dbjobportalModel.StateMaster">
+              <MappingFragment StoreEntitySet="StateMaster">
+                <ScalarProperty Name="RefCountryId" ColumnName="RefCountryId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMasters">
+            <EntityTypeMapping TypeName="dbjobportalModel.UserMaster">
+              <MappingFragment StoreEntitySet="UserMaster">
+                <ScalarProperty Name="RefCityId" ColumnName="RefCityId" />
+                <ScalarProperty Name="RefDepartmentId" ColumnName="RefDepartmentId" />
+                <ScalarProperty Name="UModifiedDate" ColumnName="UModifiedDate" />
+                <ScalarProperty Name="UCreatedDate" ColumnName="UCreatedDate" />
+                <ScalarProperty Name="UModifiedBy" ColumnName="UModifiedBy" />
+                <ScalarProperty Name="UCreatedBy" ColumnName="UCreatedBy" />
+                <ScalarProperty Name="UserDoc" ColumnName="UserDoc" />
+                <ScalarProperty Name="UserExperience" ColumnName="UserExperience" />
+                <ScalarProperty Name="UserSkills" ColumnName="UserSkills" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserContact" ColumnName="UserContact" />
+                <ScalarProperty Name="UserDOB" ColumnName="UserDOB" />
+                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
+                <ScalarProperty Name="UserAddress2" ColumnName="UserAddress2" />
+                <ScalarProperty Name="UserAddress1" ColumnName="UserAddress1" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="jobseeks">
+            <EntityTypeMapping TypeName="dbjobportalModel.jobseek">
+              <MappingFragment StoreEntitySet="jobseek">
+                <ScalarProperty Name="RefJobId" ColumnName="RefJobId" />
+                <ScalarProperty Name="RefUserId" ColumnName="RefUserId" />
+                <ScalarProperty Name="JobCreatedDate" ColumnName="JobCreatedDate" />
+                <ScalarProperty Name="JobseekId" ColumnName="JobseekId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

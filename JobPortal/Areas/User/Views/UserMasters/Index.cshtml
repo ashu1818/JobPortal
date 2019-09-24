@@ -1,0 +1,130 @@
+﻿@model IEnumerable<JobPortal.Models.UserMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/User/Views/Shared/_bsignin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserPassword)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserAddress1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserAddress2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserGender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserDOB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserContact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserSkills)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserExperience)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserDoc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UCreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UModifiedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UCreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UModifiedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CityMaster.CityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department.DepName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserPassword)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserAddress1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserAddress2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserGender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserDOB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserContact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserSkills)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserExperience)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserDoc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UCreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UModifiedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UCreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UModifiedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CityMaster.CityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department.DepName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+        </td>
+    </tr>
+}
+
+</table>

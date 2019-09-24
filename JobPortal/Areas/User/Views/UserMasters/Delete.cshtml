@@ -1,0 +1,161 @@
+﻿@model JobPortal.Models.UserMaster
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/User/Views/Shared/_bsignin.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>UserMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserPassword)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserAddress1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserAddress1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserAddress2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserAddress2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserGender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserGender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserDOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserDOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserContact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserContact)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserSkills)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserSkills)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserExperience)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserExperience)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserDoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserDoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UCreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UCreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UModifiedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UModifiedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UCreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UCreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UModifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CityMaster.CityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityMaster.CityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.DepName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.DepName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
