@@ -91,6 +91,7 @@ namespace JobPortal.Areas.User.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UserId,UserName,UserPassword,UserAddress1,UserAddress2,UserGender,UserDOB,UserContact,UserEmail,UserSkills,UserExperience,UserDoc,UCreatedBy,UModifiedBy,UCreatedDate,UModifiedDate,RefDepartmentId,RefCityId")] UserMaster userMaster)
         {
+
             if (ModelState.IsValid)
             {
                 db.Entry(userMaster).State = EntityState.Modified;

@@ -8,7 +8,6 @@ using static JobPortal.FilterConfig;
 
 namespace JobPortal.Areas.Admin.Controllers
 {
-    [AdminLoginFilter]
     public class AdminLoginController : Controller
     {
         dbjobportalEntities1 db = new dbjobportalEntities1();

@@ -47,16 +47,21 @@ namespace JobPortal.Areas.User.Controllers
 
         public ActionResult apply(int id)
         {
-
+                
                 jobseek j = new jobseek();
-            
+            if (j.RefUserId != j.RefJobId)
+            {
                 j.RefUserId = int.Parse(Session["UserId"].ToString());
                 j.JobCreatedDate = System.DateTime.Now;
                 j.RefJobId = id;
+
                 db.jobseeks.Add(j);
                 db.SaveChanges();
-            
-
+            }
+            else
+            {
+                TempData["msg"] = "already applied";
+            }
             return RedirectToAction("Index", "ManageJobs");
         }
     }

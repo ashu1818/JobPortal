@@ -7,7 +7,7 @@ using static JobPortal.FilterConfig;
 
 namespace JobPortal.Areas.Admin.Controllers
 {
-    [AdminLoginFilter]
+    
     public class DashboardController : Controller
     {
         // GET: Admin/Dashboard
